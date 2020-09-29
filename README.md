@@ -1,11 +1,11 @@
 # jason2aa
-Thanks for watching!
-This f●ckin' program convert image to ASCII Art automatically.
+Thanks for watching!<br>
+This f●ckin' program convert image to ASCII Art automatically.<br>
 As I like Jason Statham, it works like Jason Statham.
 
 # Overall
-Pass a image file, then this program converts it into ASCII Art.
-If you pass `jason2aa.py -p {path to this image} -b -w 80` this program return below image.
+Pass a image file, then this program converts it into ASCII Art.<br>
+If you pass `jason2aa.py -p {path to this image} -b -w 80` this program return below image.<br>
 
                      TFj/^`                         '!<CF=
                     vMMMMMBUj"   `',";;;;;;_:'  `=2KBMMMMB'
@@ -43,10 +43,10 @@ If you pass `jason2aa.py -p {path to this image} -b -w 80` this program return b
                                `':''""^''^^"'',''
 
 # Usase
-Usase: jason2aa.py keyword keyword .. [option]
-
-[Options]
- -w   Width of AA (The number of characters)
- -p   Path to image file
- -h   Show this help (or -help)
- -b   Return Black and white reversed image
+Usase: jason2aa.py keyword keyword .. [option]<br>
+<br>
+[Options]<br>
+ -w   Width of AA (The number of characters)<br>
+ -p   Path to image file<br>
+ -h   Show this help (or -help)<br>
+ -b   Return Black and white reversed image<br>
