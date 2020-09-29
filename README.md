@@ -7,6 +7,7 @@ As I like Jason Statham, it works like Jason Statham.
 Pass a image file, then this program converts it into ASCII Art.<br>
 If you pass `jason2aa.py -p {path to this image} -b -w 80` this program return below image.<br>
 
+```
                      TFj/^`                         '!<CF=
                     vMMMMMBUj"   `',";;;;;;_:'  `=2KBMMMMB'
                     8MMMMMMMMNQARBBNMMMMMMMMWBRQBMMMMMMMMMc
@@ -41,6 +42,7 @@ If you pass `jason2aa.py -p {path to this image} -b -w 80` this program return b
                      `':,,,,,,_c<<;;<l<^^<l<;;<<c_:,,,,,,:'
                          `''''_c<<!^<<<;;<<<^!<<?_:'''`
                                `':''""^''^^"'',''
+```
 
 # Usase
 Usase: jason2aa.py keyword keyword .. [option]<br>
