@@ -12,6 +12,8 @@ import random
 
 is_direct = False
 is_local = False
+background = 'black'
+color = 'white'
 width = os.get_terminal_size().columns
 font = ImageFont.truetype('DejaVuSansMono.ttf', 16)
 characters = list('!"#$%&\'(*+,-./0123456789:;<=?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[^_`abcdefghijklmnopqrstuvwxyz{|~ ')
@@ -46,9 +48,9 @@ def normalize(l):
 def calc_density():
     l = []
     for i in characters:
-        im = Image.new('L', (24,24), 'black')
+        im = Image.new('L', (24,24), background)
         draw = ImageDraw.Draw(im)
-        draw.text((0,0), i, fill='white', font=font)
+        draw.text((0,0), i, fill=color, font=font)
         l.append(np.array(im).mean())
     normed = normalize(l)
     dict = {key: val for key, val in zip(normed, characters)}
@@ -63,11 +65,19 @@ if '-h' in arg or '-help' in arg:
         '\n'
         '  [Options]\n'
         '   -w   Width of AA (The number of characters)\n'
-        '   -p   Path to image file.\n'
+        '   -p   Path to image file\n'
+        '   -b   Return Black and white reversed image\n'
+        '   -h   Show this help (or -help)\n'
         '\n'
         ' If I wes you, I\'m sure I can handle such a bullshit app without help.\n'
         ' Because, I\'m a true man.')
     sys.exit(0)
+if '-b' in arg:
+    b_index = arg.index('-b')
+    for i in range(1):
+        arg.pop(b_index)
+    background = 'white'
+    color = 'black'
 if '-w' in arg:
     w_index = arg.index('-w')
     try:
@@ -82,26 +92,23 @@ if '-p' in arg:
     try:
         path = arg.pop(p_index + 1)
         arg.pop(p_index)
-        if re.match('.+\.(png|jpg|jpeg|bmp|gif|tiff)', path):
-            if re.match('https?://[\w/:%#\$&\?\(\)~\.=\+\-]+', path):
-                try:
-                    image = requests.get(path)
-                    image.raise_for_status()
-                    fd, temp_path = tempfile.mkstemp()
-                    with open(temp_path, 'wb') as f:
-                        f.write(image.content)
-                    is_direct = True
-                    file_path = temp_path
-                except Exception as e:
-                    raise Exception(e)
-            else:
-                if os.path.exists(path):
-                    is_local = True
-                    file_path = path
-                else:
-                    raise Exception('There ain\'t any such file. Are you fucking with me?')
+        if re.match('https?://[\w/:%#\$&\?\(\)~\.=\+\-]+', path):
+            try:
+                image = requests.get(path)
+                image.raise_for_status()
+                fd, temp_path = tempfile.mkstemp()
+                with open(temp_path, 'wb') as f:
+                    f.write(image.content)
+                is_direct = True
+                file_path = temp_path
+            except Exception as e:
+                raise Exception(e)
         else:
-            raise Exception('The path ain\'t to image file. Are you fucking with me?')
+            if os.path.exists(path):
+                is_local = True
+                file_path = path
+            else:
+                raise Exception('There ain\'t any such file. Are you fucking with me?')
     except Exception as e:
         print(e, '\nThe above error blocked me accessing the path.\nBut, don\'t worry. Here is the my photo.')
         url = 'https://www.google.com/search?q=Jason+Statham&tbm=isch&safe=off&num=100&pws=0'
@@ -113,7 +120,13 @@ else:
     file_path = get_image(url)
 
 for i in range(10):
-    img = Image.open(file_path)
+    try:
+        img = Image.open(file_path)
+    except Exception:
+        print('Oh, fuck you! I couldn\'t open the file.\n'
+        'It\'s clearly your fault, cuz the path wasn\'t to image file.\n'
+        'But, possibly, it\'s caused by error like 404. Sorry.')
+        sys.exit(1)
     if img.mode == 'RGB':
         cont = ImageEnhance.Contrast(img)
         img_gray = cont.enhance(2.5).convert('L').resize((width, int(img.height*width/img.width//2)))
