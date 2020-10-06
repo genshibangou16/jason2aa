@@ -1,7 +1,7 @@
 # jason2aa
 Thanks for watching!<br>
-This f●ckin' program convert image to ASCII Art automatically.<br>
-As I like Jason Statham, it works like Jason Statham.
+This f●ckin' useless program convert image to ASCII Art automatically.<br>
+As I like Jason Statham, it works like Jason Statham. lol
 
 # Overall
 Pass a image file, then this program converts it into ASCII Art.<br>
