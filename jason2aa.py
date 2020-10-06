@@ -64,12 +64,12 @@ if '-h' in arg or '-help' in arg:
         '  Usase: jason2aa.py keyword keyword .. [option]\n'
         '\n'
         '  [Options]\n'
-        '   -w   Width of AA (The number of characters)\n'
+        '   -w   Width of AA (The number of characters, less than 10000)\n'
         '   -p   Path to image file\n'
         '   -b   Return Black and white reversed image\n'
         '   -h   Show this help (or -help)\n'
         '\n'
-        ' If I wes you, I\'m sure I can handle such a bullshit app without help.\n'
+        ' If I was you, I\'m sure I can handle such a bullshit app without help.\n'
         ' Because, I\'m a true man.')
     sys.exit(0)
 if '-b' in arg:
@@ -81,7 +81,11 @@ if '-b' in arg:
 if '-w' in arg:
     w_index = arg.index('-w')
     try:
-        width = int(arg.pop(w_index + 1))
+        w_temp = int(arg.pop(w_index + 1))
+        if w_temp > 0 and w_temp < 10000:
+            width = w_temp
+        else:
+            raise Exception
         arg.pop(w_index)
     except Exception:
         print('Watch it! You passed me a invalid argument as width.\nI replaced it with default width.')
@@ -116,6 +120,8 @@ if '-p' in arg:
 else:
     if len(arg) <= 1:
         arg = ['Jason', 'Statham']
+    else:
+        arg.pop(0)
     url = 'https://www.google.com/search?q=' + '+'.join(arg) + '&tbm=isch&safe=off&num=100&pws=0'
     file_path = get_image(url)
 
